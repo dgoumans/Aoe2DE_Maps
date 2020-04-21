@@ -1,0 +1,777 @@
+/* Overlord v3 */
+
+/* 22-04-2020 */
+/* Made by HenkDeSuperNerd semi ported by Dizzy*/
+
+/* SETTINGS */
+/* Map size should be 4player size or larger */
+/* The game could be played with 4+ players */
+/* The host will be the overlord. It is advised to pick a clear color, so that your chat is clearly readable. */
+/* GO MALAY FOR FASTER UPTIME - Don't forget your upgrades :) */
+
+#const SOIL_PLAYER 12 /* grass 2 */
+#const SOIL_PATCH1 5 /* leaves */
+#const SOIL_PATCH2 9 /* grass 3 */
+#const SOIL_PATCH3 0 /* grass */
+#const SOIL_BEDROCK 40 /* rocks */
+
+#const SOIL_OVERLORD 14 /* desert */
+#const SOIL_OVERLORD_GATE 6 /* dirt */
+#const SOIL_OVERLORD_ROAD 25 /* road2 */
+#const SOIL_OVERLORD_PLAZA 27 /* road */
+#const SOIL_OVERLORD_WALLSTREET 24 /* road2 */
+
+#const WOODS1 19 /* pine forest */
+#const WOODS2 10 /* forest */
+
+#const CATTLE 705 /* cow */
+#const GAME 65 /* deer */ 
+#const BIGGAME 48 /* boar */
+#const PREDATOR 486 /* bear */
+#const FRUIT 59 /* berry bush */
+
+#const STRAGGLER_TREE 1053
+#const SPECIAL_TREE 1051
+
+#const FIRE_TOWER 190
+#const PALACE 1096
+
+<PLAYER_SETUP>
+direct_placement
+
+<LAND_GENERATION>
+base_terrain SOIL_BEDROCK
+
+create_land
+{
+terrain_type SOIL_OVERLORD /* the terrain where the overlord's objects spawn on */
+base_size 30 /* radius of the square (half the width) */
+number_of_tiles 1 /* small number so tere will not be any excess areea appart from the square land */
+land_position 50 50 /* exactly in the middle */
+assign_to AT_PLAYER 1 0 0 /* assigns this land to the player in RED */
+base_elevation 4 /* a nice high position to watch over the enemies */
+other_zone_avoidance_distance 5 /* another layer of rock terrain around the overlord */
+zone 1
+}
+
+/* 4 smaller squares to create paths in the middle base */
+create_land
+{
+terrain_type SOIL_OVERLORD_PLAZA
+base_size 3
+number_of_tiles 1
+if SMALL_MAP
+land_position 45 45
+elseif MEDIUM_MAP
+land_position 46 46
+else
+land_position 47 47
+endif
+
+base_elevation 5
+}
+
+create_land
+{
+terrain_type SOIL_OVERLORD_PLAZA
+base_size 3
+number_of_tiles 1
+if SMALL_MAP
+land_position 55 45
+elseif MEDIUM_MAP
+land_position 54 46
+else
+land_position 53 47
+endif
+base_elevation 5
+}
+
+create_land
+{
+terrain_type SOIL_OVERLORD_PLAZA
+base_size 3
+number_of_tiles 1
+if SMALL_MAP
+land_position 45 55
+elseif MEDIUM_MAP
+land_position 46 54
+else
+land_position 47 53
+endif
+base_elevation 5
+}
+
+create_land
+{
+terrain_type SOIL_OVERLORD_PLAZA
+base_size 3
+number_of_tiles 1
+if SMALL_MAP
+land_position 55 55
+elseif MEDIUM_MAP
+land_position 54 54
+else
+land_position 53 53
+endif
+base_elevation 5
+}
+
+/* the four entrances */
+
+create_land
+{
+terrain_type SOIL_OVERLORD_GATE
+base_size 1
+number_of_tiles 1
+if SMALL_MAP
+land_position 40 50
+elseif MEDIUM_MAP
+land_position 42 50 
+else
+land_position 43 50
+endif
+base_elevation 4
+}
+
+create_land
+{
+terrain_type SOIL_OVERLORD_GATE
+base_size 1
+number_of_tiles 1
+if SMALL_MAP
+land_position 50 40
+elseif MEDIUM_MAP
+land_position 50 41 
+else
+land_position 50 43
+endif
+base_elevation 4
+}
+
+create_land
+{
+terrain_type SOIL_OVERLORD_GATE
+base_size 1
+number_of_tiles 1
+if SMALL_MAP
+land_position 50 61
+elseif MEDIUM_MAP
+land_position 50 59
+else
+land_position 50 57
+endif
+base_elevation 4
+}
+
+create_land
+{
+terrain_type SOIL_OVERLORD_GATE
+base_size 1
+number_of_tiles 1
+if SMALL_MAP
+land_position 60 50
+elseif MEDIUM_MAP
+land_position 59 50 
+else
+land_position 57 50
+endif
+base_elevation 4
+}
+
+
+
+/* create other lands */
+
+if 4_PLAYER_GAME
+#define LAND4
+elseif 5_PLAYER_GAME
+#define LAND4
+#define LAND5
+elseif 6_PLAYER_GAME
+#define LAND4
+#define LAND5
+#define LAND6
+elseif 7_PLAYER_GAME
+#define LAND4
+#define LAND5
+#define LAND6
+#define LAND7
+elseif 8_PLAYER_GAME
+#define LAND4
+#define LAND5
+#define LAND6
+#define LAND7
+#define LAND8
+endif
+
+/* LAND 2 */
+create_land
+{
+terrain_type SOIL_PLAYER /* buildable terrain on which resources can spawn */
+base_size 10 /* radius of the square (half the width) */
+land_percent 100 /* a large number, so the player lands will fill in all available space */
+assign_to AT_TEAM -10 0 0  /* assign to random player, by default */
+base_elevation 1 /* having a slightly higher position to create troughs between players */
+other_zone_avoidance_distance 5 /* spaces away from other lands to create the troughs */
+zone 2
+}
+
+/* LAND 3 */                                                                   
+create_land
+{
+terrain_type SOIL_PLAYER /* buildable terrain on which resources can spawn */
+base_size 10 /* radius of the square (half the width) */
+land_percent 100 /* a large number, so the player lands will fill in all available space */
+assign_to AT_TEAM -10 0 0 /* assign to random player, by default */
+base_elevation 1 /* having a slightly higher position to create troughs between players */
+other_zone_avoidance_distance 5 /* spaces away from other lands to create the troughs */
+zone 3
+}
+
+if LAND4
+create_land
+{
+terrain_type SOIL_PLAYER /* buildable terrain on which resources can spawn */
+base_size 10 /* radius of the square (half the width) */
+land_percent 100 /* a large number, so the player lands will fill in all available space */
+assign_to AT_TEAM -10 0 0 /* assign to random player, by default */
+base_elevation 1 /* having a slightly higher position to create troughs between players */
+other_zone_avoidance_distance 5 /* spaces away from other lands to create the troughs */
+zone 4
+}
+endif
+
+if LAND5
+create_land
+{
+terrain_type SOIL_PLAYER /* buildable terrain on which resources can spawn */
+base_size 10 /* radius of the square (half the width) */
+land_percent 100 /* a large number, so the player lands will fill in all available space */
+assign_to AT_TEAM -10 0 0 /* assign to random player, by default */
+base_elevation 1 /* having a slightly higher position to create troughs between players */
+other_zone_avoidance_distance 5 /* spaces away from other lands to create the troughs */
+zone 5
+}
+endif
+
+if LAND6
+create_land
+{
+terrain_type SOIL_PLAYER /* buildable terrain on which resources can spawn */
+base_size 10 /* radius of the square (half the width) */
+land_percent 100 /* a large number, so the player lands will fill in all available space */
+assign_to AT_TEAM -10 0 0 /* assign to random player, by default */
+base_elevation 1 /* having a slightly higher position to create troughs between players */
+other_zone_avoidance_distance 5 /* spaces away from other lands to create the troughs */
+zone 6
+}
+endif
+
+if LAND7
+create_land
+{
+terrain_type SOIL_PLAYER /* buildable terrain on which resources can spawn */
+base_size 10 /* radius of the square (half the width) */
+land_percent 100 /* a large number, so the player lands will fill in all available space */
+assign_to AT_TEAM -10 0 0 /* assign to random player, by default */
+base_elevation 1 /* having a slightly higher position to create troughs between players */
+other_zone_avoidance_distance 5 /* spaces away from other lands to create the troughs */
+zone 7
+}
+endif
+
+if LAND8
+create_land
+{
+terrain_type SOIL_PLAYER /* buildable terrain on which resources can spawn */
+base_size 10 /* radius of the square (half the width) */
+land_percent 100 /* a large number, so the player lands will fill in all available space */
+assign_to AT_TEAM -10 0 0 /* assign to random player, by default */
+base_elevation 1 /* having a slightly higher position to create troughs between players */
+other_zone_avoidance_distance 5 /* spaces away from other lands to create the troughs */
+zone 8
+}
+endif
+
+<ELEVATION_GENERATION>
+
+/* hills on the grass lands */
+create_elevation 3 
+{
+base_terrain SOIL_PLAYER
+number_of_tiles 725
+number_of_clumps 28
+set_scale_by_groups
+}
+
+<TERRAIN_GENERATION>
+
+create_terrain SOIL_OVERLORD_ROAD
+{
+base_terrain SOIL_OVERLORD
+spacing_to_other_terrain_types 1
+land_percent 70  
+}
+
+/* Forests */
+create_terrain WOODS1
+{
+base_terrain SOIL_PLAYER
+spacing_to_other_terrain_types 5
+land_percent 8
+number_of_clumps 10
+clumping_factor 50
+set_avoid_player_start_areas 
+set_scale_by_groups    
+}
+
+create_terrain WOODS2
+{
+base_terrain SOIL_PLAYER
+spacing_to_other_terrain_types 5
+land_percent 3
+number_of_clumps 8
+clumping_factor 50
+set_avoid_player_start_areas 
+set_scale_by_groups    
+}
+
+create_terrain SOIL_PATCH1
+{
+base_terrain SOIL_PLAYER
+spacing_to_other_terrain_types 2
+land_percent 5
+number_of_clumps 11
+clumping_factor 10
+set_avoid_player_start_areas 
+set_scale_by_groups    
+}
+
+create_terrain SOIL_PATCH2
+{
+base_terrain SOIL_PLAYER
+spacing_to_other_terrain_types 2
+land_percent 4
+number_of_clumps 9
+clumping_factor 10
+set_avoid_player_start_areas 
+set_scale_by_groups    
+}
+
+create_terrain SOIL_PATCH3
+{
+base_terrain SOIL_PLAYER
+spacing_to_other_terrain_types 2
+land_percent 4
+number_of_clumps 9
+clumping_factor 10
+set_avoid_player_start_areas 
+set_scale_by_groups    
+}
+
+create_terrain SOIL_OVERLORD_WALLSTREET
+{
+base_terrain SOIL_OVERLORD_ROAD
+spacing_to_other_terrain_types 1
+land_percent 10
+}
+
+
+<OBJECTS_GENERATION>
+
+/* a town center for all players, except for the overlord */
+
+create_object TOWN_CENTER
+{
+min_distance_to_players 0
+max_distance_to_players 0
+group_placement_radius 18
+terrain_to_place_on SOIL_PLAYER
+set_place_for_every_player
+}
+create_object MILL
+{
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on SOIL_OVERLORD_ROAD
+min_distance_group_placement 0
+set_place_for_every_player
+}
+
+/* additionalbuildings for overlord */
+create_object LUMBER_CAMP
+{
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on SOIL_OVERLORD_ROAD
+min_distance_group_placement 0
+set_place_for_every_player
+}
+
+create_object PALACE
+{
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on SOIL_OVERLORD_ROAD
+set_place_for_every_player
+}
+create_object MARKET
+{
+min_distance_to_players 0
+max_distance_to_players 0
+terrain_to_place_on SOIL_OVERLORD_ROAD
+min_distance_group_placement 0
+set_place_for_every_player
+}
+
+/* indestructable walls */
+create_object FORTIFIED_WALL
+{
+min_distance_to_players 3
+number_of_objects 999
+terrain_to_place_on SOIL_OVERLORD
+}
+
+/* normal walls + gates */
+create_object STONE_WALL
+{
+min_distance_to_players 16
+max_distance_to_players 16
+number_of_objects 999
+set_place_for_every_player
+}
+
+create_object MAP_REVEALER
+{
+number_of_objects 999
+min_distance_group_placement 1
+min_distance_to_players 0
+max_distance_to_players 22
+terrain_to_place_on SOIL_PLAYER
+set_place_for_every_player
+}
+
+/* more buildings for the overlord, on the four plazas */
+create_object TOWN_CENTER
+{
+min_distance_to_players 0
+max_distance_to_players 11
+min_distance_group_placement 5
+terrain_to_place_on SOIL_OVERLORD_PLAZA
+set_place_for_every_player
+}
+
+create_object BLACKSMITH
+{
+number_of_objects 1
+min_distance_to_players 0
+max_distance_to_players 10
+min_distance_group_placement 5
+terrain_to_place_on SOIL_OVERLORD_PLAZA
+set_place_for_every_player
+}
+
+create_object CASTLE
+{
+number_of_objects 1
+min_distance_to_players 0
+max_distance_to_players 10
+min_distance_group_placement 5
+terrain_to_place_on SOIL_OVERLORD_PLAZA
+set_place_for_every_player
+}
+
+create_object UNIVERSITY
+{
+number_of_objects 1
+min_distance_to_players 0
+max_distance_to_players 10
+min_distance_group_placement 5
+terrain_to_place_on SOIL_OVERLORD_PLAZA
+set_place_for_every_player
+}
+
+/* money makers */
+
+create_object DLC_FEITORIA
+{
+number_of_objects 15
+terrain_to_place_on SOIL_OVERLORD_WALLSTREET
+set_place_for_every_player
+}
+
+/* fire towers for additional defence */
+create_object FIRE_TOWER
+{
+number_of_objects 999
+min_distance_group_placement 3
+min_distance_to_players 7
+max_distance_to_players 30
+terrain_to_place_on SOIL_OVERLORD_WALLSTREET
+set_place_for_every_player
+}
+
+/* STANDARD RESOURCES */
+
+/* villagers for the players */
+create_object VILLAGER
+{
+min_distance_to_players 5
+max_distance_to_players 6
+terrain_to_place_on SOIL_PLAYER
+set_place_for_every_player
+}
+
+
+/* castle for players */
+
+if REGICIDE /* always place at least a king for regicide! */
+    create_object KING
+    {
+        set_place_for_every_player
+        max_distance_to_players 4
+    }
+	create_object CASTLE
+	{
+	min_distance_to_players 10
+	max_distance_to_players 12
+	terrain_to_place_on SOIL_PLAYER
+	set_place_for_every_player
+	}
+	/* extra villagers for players */
+	create_object VILLAGER
+	{
+	number_of_objects 7
+	min_distance_to_players 6
+	max_distance_to_players 7
+	terrain_to_place_on SOIL_PLAYER
+	set_place_for_every_player
+	}
+endif
+
+create_object SCOUT 
+{
+set_place_for_every_player
+min_distance_to_players 7
+max_distance_to_players 9
+terrain_to_place_on SOIL_PLAYER	
+}
+
+
+/* Premary herdable. */
+create_object CATTLE 
+{
+number_of_objects 4
+set_loose_grouping
+set_gaia_object_only
+set_place_for_every_player
+min_distance_to_players    7
+max_distance_to_players    9
+terrain_to_place_on SOIL_PLAYER	
+}
+
+create_object CATTLE 
+{
+number_of_objects 2
+set_loose_grouping
+set_gaia_object_only
+set_place_for_every_player
+min_distance_to_players    10
+max_distance_to_players    12
+terrain_to_place_on SOIL_PLAYER	
+}  
+
+create_object BIGGAME 
+{
+number_of_objects 1
+number_of_groups 2
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 16
+max_distance_to_players 18
+terrain_to_place_on SOIL_PLAYER	
+}
+
+create_object FRUIT
+{
+number_of_objects 6
+set_place_for_every_player
+set_gaia_object_only
+group_placement_radius 2
+set_tight_grouping
+min_distance_to_players 10
+max_distance_to_players 13
+min_distance_group_placement 5
+max_distance_to_other_zones 3
+terrain_to_place_on SOIL_PLAYER 
+}
+
+create_object GAME
+{
+number_of_objects 4
+group_placement_radius 3
+set_loose_grouping
+set_gaia_object_only
+set_place_for_every_player
+min_distance_to_players 17
+max_distance_to_players 18	
+max_distance_to_other_zones 6
+terrain_to_place_on SOIL_PLAYER	
+} 
+
+/* Straggler Trees */
+
+create_object SPECIAL_TREE 
+{
+number_of_objects             2
+set_gaia_object_only
+set_place_for_every_player
+min_distance_to_players       4
+max_distance_to_players       5
+min_distance_group_placement  2
+terrain_to_place_on SOIL_PLAYER	
+}
+
+create_object SPECIAL_TREE
+{
+number_of_objects             3
+set_gaia_object_only
+set_place_for_every_player
+min_distance_to_players       6
+max_distance_to_players       8
+min_distance_group_placement  2
+terrain_to_place_on SOIL_PLAYER	
+}
+
+/* Player primary gold */
+create_object GOLD 
+{
+number_of_objects          5
+group_placement_radius     3
+set_tight_grouping
+set_gaia_object_only
+set_place_for_every_player
+min_distance_to_players 10
+max_distance_to_players 12
+min_distance_group_placement  7
+max_distance_to_other_zones 7
+terrain_to_place_on SOIL_PLAYER	
+}
+
+/* main stone */
+create_object STONE 
+{
+number_of_objects 3
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+set_place_for_every_player
+min_distance_to_players  12
+max_distance_to_players 15
+min_distance_group_placement 7
+max_distance_to_other_zones 7
+terrain_to_place_on SOIL_PLAYER
+}
+
+/* secondary gold */
+create_object GOLD 
+{
+number_of_objects 3
+group_placement_radius 2	
+set_tight_grouping
+set_gaia_object_only
+set_place_for_every_player
+min_distance_to_players 21
+max_distance_to_players 27
+min_distance_group_placement 7
+temp_min_distance_group_placement 13
+max_distance_to_other_zones 5
+terrain_to_place_on SOIL_PLAYER
+}
+
+/* secondary stone */
+create_object STONE
+{
+number_of_objects 3
+group_placement_radius 2
+set_tight_grouping
+set_gaia_object_only
+set_place_for_every_player
+min_distance_to_players 21
+max_distance_to_players 27
+min_distance_group_placement 7
+max_distance_to_other_zones 5
+terrain_to_place_on SOIL_PLAYER		
+}
+
+/* more neutral objects and resources */
+create_object RELIC 
+{
+number_of_objects 5
+min_distance_to_players 25
+set_gaia_object_only
+temp_min_distance_group_placement 30
+terrain_to_place_on SOIL_PLAYER	
+}
+
+create_object STRAGGLER_TREE 
+{
+number_of_objects 35
+min_distance_to_players 12
+set_scaling_to_map_size
+set_gaia_object_only
+temp_min_distance_group_placement 5
+terrain_to_place_on SOIL_PLAYER	
+}
+
+create_object FOREST_TREE 
+{
+number_of_objects 35
+min_distance_to_players 12
+set_scaling_to_map_size
+set_gaia_object_only
+temp_min_distance_group_placement 5
+terrain_to_place_on SOIL_PATCH3	
+}
+
+create_object PREDATOR
+{
+number_of_objects 2
+min_distance_to_players 29
+max_distance_to_players 40
+set_place_for_every_player
+set_gaia_object_only
+temp_min_distance_group_placement 15
+terrain_to_place_on SOIL_PLAYER	
+}
+
+create_object GOLD 
+{
+number_of_objects 3
+number_of_groups 1
+group_placement_radius 2	
+set_tight_grouping
+min_distance_to_players 34
+max_distance_to_players 60
+set_scaling_to_player_number
+set_gaia_object_only
+min_distance_group_placement 10
+temp_min_distance_group_placement 25
+terrain_to_place_on SOIL_PLAYER	
+}
+
+create_object STONE
+{
+number_of_objects 3
+number_of_groups 1
+group_variance 1
+group_placement_radius 2	
+set_tight_grouping
+min_distance_to_players 34
+max_distance_to_players 60
+set_scaling_to_player_number
+set_gaia_object_only
+min_distance_group_placement 10
+temp_min_distance_group_placement 25
+terrain_to_place_on SOIL_PLAYER	
+}
