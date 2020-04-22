@@ -1,0 +1,261 @@
+<PLAYER_SETUP>
+direct_placement
+nomad_resources 
+
+<LAND_GENERATION>
+base_terrain GRASS
+
+create_land
+{
+  terrain_type DLC_ROCK
+  land_position 50 50
+  base_size 18
+  number_of_tiles 1
+  zone 50
+}
+
+create_land
+{                    
+  terrain_type ROAD
+  base_size 2
+  number_of_tiles 1
+  land_position 50 35
+  other_zone_avoidance_distance 2
+  assign_to AT_PLAYER 1 0 0
+  base_elevation 2
+  zone 1
+}
+create_land
+{                    
+  terrain_type ROAD
+  base_size 2
+  number_of_tiles 1
+  land_position 60 40
+  other_zone_avoidance_distance 2
+  assign_to AT_PLAYER 2 0 0
+  base_elevation 2
+  zone 2
+}
+create_land
+{                    
+  terrain_type ROAD
+  base_size 2
+  number_of_tiles 1
+  land_position 65 50
+  other_zone_avoidance_distance 2
+  assign_to AT_PLAYER 3 0 0
+  base_elevation 2
+  zone 3
+}
+create_land
+{                    
+  terrain_type ROAD
+  base_size 2
+  number_of_tiles 1
+  land_position 60 65
+  other_zone_avoidance_distance 2
+  assign_to AT_PLAYER 4 0 0
+  base_elevation 2
+  zone 4
+}
+
+create_land
+{                    
+  terrain_type ROAD
+  base_size 2
+  number_of_tiles 1
+  land_position 50 65
+  other_zone_avoidance_distance 2
+  assign_to AT_PLAYER 5 0 0
+  base_elevation 2
+  zone 5
+}
+create_land
+{                    
+  terrain_type ROAD
+  base_size 2
+  number_of_tiles 1
+  land_position 40 60
+  other_zone_avoidance_distance 2
+  assign_to AT_PLAYER 6 0 0
+  base_elevation 2 
+  zone 6
+}
+create_land
+{                    
+  terrain_type ROAD
+  base_size 2
+  number_of_tiles 1
+  land_position 35 50
+  other_zone_avoidance_distance 2
+  assign_to AT_PLAYER 7 0 0
+  base_elevation 2
+  zone 7
+}
+create_land
+{                    
+  terrain_type ROAD
+  base_size 2
+  number_of_tiles 1
+  land_position 40 40
+  other_zone_avoidance_distance 2
+  assign_to AT_PLAYER 8 0 0
+  base_elevation 2
+  zone 8
+}
+
+<TERRAIN_GENERATION>
+create_terrain FOREST
+{
+base_terrain GRASS
+number_of_clumps 60
+land_percent 30
+spacing_to_other_terrain_types 1
+set_scale_by_groups
+spacing_to_other_terrain_types 10
+}
+
+<OBJECTS_GENERATION>
+
+create_object KING
+{
+	 terrain_to_place_on ROAD
+     set_place_for_every_player
+     min_distance_to_players 0
+     max_distance_to_players 5
+}
+
+create_object VILLAGER
+{
+	terrain_to_place_on GRASS
+	set_avoid_player_start_areas
+	set_gaia_object_only
+	number_of_objects	1
+	number_of_groups	25
+	min_distance_to_players 10
+	set_loose_grouping
+	set_scaling_to_map_size
+}
+
+create_object JAVELINA
+{
+  number_of_objects          5
+  group_placement_radius     40
+  set_loose_grouping
+  set_gaia_object_only
+  min_distance_to_players    40
+  terrain_to_place_on     GRASS
+}
+
+create_object TURKEY
+{
+   number_of_groups            8
+   number_of_objects           1
+   group_variance 2
+   set_gaia_object_only
+   set_scaling_to_map_size
+   min_distance_group_placement  8
+   min_distance_to_players      25
+   terrain_to_place_on     GRASS
+}
+
+create_object DEER
+{
+   number_of_objects 2
+   number_of_groups 3
+   group_variance 1
+   set_loose_grouping
+   set_gaia_object_only
+   set_scaling_to_map_size
+   min_distance_group_placement  10
+   min_distance_to_players    25
+   terrain_to_place_on     GRASS
+}
+
+create_object GOLD
+{
+  number_of_groups           5   
+  number_of_objects          2
+  group_placement_radius     2
+  set_tight_grouping
+  set_gaia_object_only
+  set_scaling_to_map_size
+  min_distance_group_placement  10
+  terrain_to_place_on		GRASS
+}
+
+create_object GOLD
+{
+  number_of_groups           4    
+  number_of_objects          3
+  group_variance             1
+  group_placement_radius     2
+  set_tight_grouping
+  set_gaia_object_only
+  min_distance_group_placement  13
+  min_distance_to_players    40
+  set_avoid_player_start_areas
+  max_distance_to_other_zones 6
+  terrain_to_place_on		GRASS
+}
+
+create_object STONE
+{
+  number_of_groups           8    
+  number_of_objects          4
+  group_placement_radius     2
+  set_tight_grouping
+  set_gaia_object_only
+  set_scaling_to_map_size
+  min_distance_group_placement	10
+  terrain_to_place_on		GRASS
+}
+create_object STONE
+{
+  number_of_groups           4    
+  number_of_objects          6
+  group_variance             1
+  group_placement_radius     2
+  set_tight_grouping
+  set_gaia_object_only
+  min_distance_group_placement  13
+  min_distance_to_players    40
+  set_avoid_player_start_areas
+  max_distance_to_other_zones 6
+  terrain_to_place_on		GRASS
+}
+
+create_object FORAGE
+{
+  number_of_groups           10   
+  number_of_objects          4
+  group_placement_radius     3
+  set_tight_grouping
+  set_gaia_object_only
+  set_scaling_to_map_size
+  min_distance_group_placement  16
+  min_distance_to_players    40
+  terrain_to_place_on		GRASS
+}
+
+create_object WOLF
+{
+  number_of_objects          1
+  group_placement_radius     2
+  set_tight_grouping
+  set_gaia_object_only
+  set_scaling_to_map_size
+  min_distance_group_placement  10
+  terrain_to_place_on		GRASS
+  max_distance_to_other_zones 30
+}
+
+create_object KNIGHT
+{
+	terrain_to_place_on DLC_ROCK
+	set_avoid_player_start_areas
+	set_gaia_object_only
+	number_of_objects	3
+	number_of_groups	3
+	min_distance_to_players 15
+}
