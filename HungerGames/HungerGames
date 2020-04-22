@@ -110,19 +110,17 @@ create_terrain FOREST
 base_terrain GRASS
 number_of_clumps 60
 land_percent 30
-spacing_to_other_terrain_types 1
 set_scale_by_groups
 spacing_to_other_terrain_types 10
 }
 
 <OBJECTS_GENERATION>
-
 create_object KING
 {
 	 terrain_to_place_on ROAD
-     set_place_for_every_player
-     min_distance_to_players 0
-     max_distance_to_players 5
+   set_place_for_every_player
+   min_distance_to_players 0
+   max_distance_to_players 5
 }
 
 create_object VILLAGER
@@ -137,7 +135,7 @@ create_object VILLAGER
 	set_scaling_to_map_size
 }
 
-create_object JAVELINA
+create_object BOAR
 {
   number_of_objects          5
   group_placement_radius     40
@@ -253,9 +251,7 @@ create_object WOLF
 create_object KNIGHT
 {
 	terrain_to_place_on DLC_ROCK
-	set_avoid_player_start_areas
 	set_gaia_object_only
 	number_of_objects	3
 	number_of_groups	3
-	min_distance_to_players 15
 }
